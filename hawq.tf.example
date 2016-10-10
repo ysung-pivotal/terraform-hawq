@@ -1,5 +1,5 @@
 module "hawq" {
-    source                      = "github.com/Shangguan/terraform-hawq.git"
+    source                      = "github.com/Shangguan/terraform-hawq"
     gcp_clustername             = "hawq"
     gcp_credentials_path        = "/PATH/TO/GCE/ACCOUNT/FILE.json"
     gcp_project                 = "YOUR_GCE_PROJECT"
