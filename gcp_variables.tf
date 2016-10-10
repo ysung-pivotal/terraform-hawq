@@ -70,5 +70,4 @@ variable "hdp_services" {
 
 variable "dpod_dir" {
   description = "Directory to hold auto provisioning scripts"
-  default = "/tmp/dpod-pivotal"
 }
