@@ -8,6 +8,7 @@ module "hawq" {
     gcp_publickey_path          = "/PATH/TO/PUBLICKEY.pub"
     gcp_privatekey_path         = "/PATH/TO/PRIVATEKEY"
     pivotal_token               = "YOUR_PIVNET_TOKEN"
+    hawq_password               = "GPADMIN_PASSWORD"
     hdp_services                = "HDFS MAPREDUCE2 YARN ZOOKEEPER PIG HIVE TEZ AMBARI_METRICS HAWQ PXF SPARK"
     ambari_machine_type         = "n1-standard-4"
     cluster_machine_type        = "n1-standard-8"
