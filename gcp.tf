@@ -12,6 +12,13 @@ data "template_file" "userdata" {
   }
 }
 
+data "template_file" "zeppelin" {
+  template = "${file("${path.module}/templates/zeppelin.sh.tpl")}"
+  vars {
+    stack_version = "${var.hdp_version}"
+  }
+}
+
 data "template_file" "hdb" {
   template = "${file("${path.module}/templates/hdb.sh.tpl")}"
   vars {
@@ -32,6 +39,7 @@ data "template_file" "deploy" {
   vars {
     cluster_size = "${var.cluster_size}"
     hdp_services = "${var.hdp_services}"
+    stack_version = "${var.hdp_version}"
     dpod_dir = "${var.dpod_dir}"
   }
 }
@@ -101,6 +109,11 @@ resource "google_compute_instance" "ambari" {
   }
 
   provisioner "file" {
+    content = "${data.template_file.zeppelin.rendered}"
+    destination = "${var.dpod_dir}/zeppelin.sh"
+  }
+
+  provisioner "file" {
     content = "${data.template_file.hdb.rendered}"
     destination = "${var.dpod_dir}/hdb.sh"
   }
@@ -127,6 +140,7 @@ resource "google_compute_instance" "ambari" {
       "export java_provider=oracle",
       "export ambari_version=2.2.2.0",
       "bash ${var.dpod_dir}/ambari-bootstrap/ambari-bootstrap.sh",
+      "bash ${var.dpod_dir}/zeppelin.sh",
       "bash ${var.dpod_dir}/hdb.sh"
     ]
   }
@@ -138,7 +152,7 @@ resource "google_compute_instance" "cluster_node" {
   name = "${var.gcp_clustername}-node-${count.index}"
   machine_type = "${var.cluster_machine_type}"
   zone = "${var.gcp_zone}"
-  tags = ["ssh"]
+  tags = ["ssh", "hdp"]
 
   disk {
     image = "${var.gcp_image}"

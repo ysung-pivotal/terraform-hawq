@@ -63,6 +63,11 @@ variable "hawq_password" {
   description = "Password for HAWQ user (gpadmin)"
 }
 
+variable "hdp_version" {
+  description = "Version of Hortonworks Data Platform (HDP) to be installed"
+  default = "2.4"
+}
+
 variable "hdp_services" {
   description = "Hortonworks Data Platform (HDP) services to be installed"
   default = "HDFS MAPREDUCE2 YARN ZOOKEEPER PIG HIVE TEZ AMBARI_METRICS HAWQ PXF HBASE SPARK"

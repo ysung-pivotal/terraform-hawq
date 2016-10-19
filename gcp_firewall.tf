@@ -43,3 +43,16 @@ resource "google_compute_firewall" "ssh" {
     target_tags = ["ssh"]
     source_ranges = ["0.0.0.0/0"]
 }
+
+resource "google_compute_firewall" "hdp" {
+    name = "${var.gcp_clustername}-${var.gcp_region}-hdp"
+    network = "${google_compute_network.cluster-global-net.name}"
+
+    allow {
+        protocol = "tcp"
+        ports = ["5432", "9995-9996"]
+    }
+
+    target_tags = ["hdp"]
+    source_ranges = ["0.0.0.0/0"]
+}
