@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./ambari-bootstrap/extras/ambari_functions.sh
+source $(find / -name ambari-bootstrap 2>/dev/null | head -n 1)/extras/ambari_functions.sh
 ambari_configs
 
 hawq_master_host=$(${ambari_config_get} hawq-site | awk -F'"' '$2 == "hawq_master_address_host" {print $4}' | head -1)

@@ -19,3 +19,6 @@ sleep 10
 source ${dpod_dir}/ambari-bootstrap/extras/ambari_functions.sh
 ambari_configs
 ambari_wait_request_complete 1
+
+# Fix segment FQDN in gp_segment_configuration catalog
+bash -c '${dpod_dir}/hawq_segment.sh'
