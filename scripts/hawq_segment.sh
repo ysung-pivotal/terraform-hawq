@@ -8,7 +8,7 @@ hawq_password=$(${ambari_config_get} hawq-env | awk -F'"' '$2 == "hawq_password"
 
 sudo yum install -y sshpass &> /dev/null
 
-localhost_entries=$(sshpass -p $hawq_password ssh gpadmin@$hawq_master_host "source /usr/local/hawq/greenplum_path.sh; psql -d postgres -c 'select * from gp_segment_configuration;'" | grep -i localhost | grep -i 40000 | wc -l)
+localhost_entries=$(sshpass -p $hawq_password ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no gpadmin@$hawq_master_host "source /usr/local/hawq/greenplum_path.sh; psql -d postgres -c 'select * from gp_segment_configuration;'" | grep -i localhost | grep -i 40000 | wc -l)
 
 if [ $localhost_entries -ne 0 ]
 then
