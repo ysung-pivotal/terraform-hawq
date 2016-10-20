@@ -129,7 +129,7 @@ resource "google_compute_instance" "ambari" {
   }
 
   provisioner "file" {
-    content = "${path.module}/scripts/hawq_segment.sh"
+    source = "${path.module}/scripts/hawq_segment.sh"
     destination = "${var.dpod_dir}/hawq_segment.sh"
   }
 
