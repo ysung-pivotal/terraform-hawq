@@ -22,7 +22,7 @@ case $plan_is_correct in
 esac
 
 echo
-echo "\033[0;31mGetting ready to install HAWQ cluster...\033[0m"
+echo -e "\033[0;31mGetting ready to install HAWQ cluster...\033[0m"
 sleep 20
 echo
 
