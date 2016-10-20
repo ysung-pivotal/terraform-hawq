@@ -44,13 +44,6 @@ data "template_file" "deploy" {
   }
 }
 
-data "template_file" "segment_catalog" {
-  template = "${file("${path.module}/templates/hawq_segment.sh.tpl")}"
-  vars {
-    dpod_dir = "${var.dpod_dir}"
-  }
-}
-
 # GCP resources for the cluster
 resource "google_compute_network" "cluster-global-net" {
     name = "${var.gcp_clustername}-global-net"
@@ -136,7 +129,7 @@ resource "google_compute_instance" "ambari" {
   }
 
   provisioner "file" {
-    content = "${data.template_file.segment_catalog.rendered}"
+    content = "${path.module}/scripts/hawq_segment.sh"
     destination = "${var.dpod_dir}/hawq_segment.sh"
   }
 
