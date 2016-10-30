@@ -8,7 +8,7 @@ sed -i 's/\(^[^#]*\)SELINUX=permissive/\1SELINUX=disabled/' /etc/selinux/config
 
 ##########################################################################################
 # Set swappiness to minimum
-echo 0 | tee /proc/sys/vm/swappiness
+echo 1 | tee /proc/sys/vm/swappiness
 
 # Set the value in /etc/sysctl.conf so it stays after reboot.
 echo '' >> /etc/sysctl.conf
